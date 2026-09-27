@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Pendidikan - Tugas Media Pembelajaran</title>
+    <!-- Google Fonts untuk tipografi yang modern dan mudah dibaca -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        /* ===== RESET & VARIABEL ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-light: #dbeafe;
+            --primary-dark: #1e40af;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.04);
+            --radius: 16px;
+            --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+            --font-serif: 'Lora', Georgia, serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== LAYOUT ===== */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: white;
+            padding: 64px 0 48px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(4px);
+            padding: 6px 16px;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            font-weight: 600;
+            line-height: 1.25;
+            margin-bottom: 16px;
+            letter-spacing: -0.01em;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        /* ===== NAVIGASI ===== */
+        nav {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(8px);
+            background: rgba(255, 255, 255, 0.85);
+        }
+
+        .nav-inner {
+            display: flex;
+            gap: 8px;
+            padding: 12px 0;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .nav-inner::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-inner a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 999px;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .nav-inner a:hover,
+        .nav-inner a.active {
+            background: var(--primary-light);
+            color: var(--primary-dark);
+        }
+
+        /* ===== KONTEN UTAMA ===== */
+        main {
+            padding: 48px 0 80px;
+        }
+
+        .section {
+            margin-bottom: 48px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .section-number {
+            flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+            background: var(--primary);
+            color: white;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .section-title h2 {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text);
+            line-height: 1.3;
+            letter-spacing: -0.01em;
+        }
+
+        .section-title p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-top: 4px;
+        }
+
+        /* ===== KARTU ===== */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            box-shadow: var(--shadow);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card + .card {
+            margin-top: 20px;
+        }
+
+        .card h3 {
+            font-family: var(--font-serif);
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+
+        .card p {
+            color: var(--text);
+            margin-bottom: 12px;
+        }
+
+        .card p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ===== DAFTAR ===== */
+        .list-check {
+            list-style: none;
+            padding: 0;
+        }
+
+        .list-check li {
+            position: relative;
+            padding-left: 28px;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+
+        .list-check li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .list-cross li::before {
+            content: '✕';
+            color: #ef4444;
+        }
+
+        /* ===== GRID DUA KOLOM ===== */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 640px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== KUTIPAN / SUMBER ===== */
+        .source-box {
+            background: #f0f9ff;
+            border-left: 4px solid var(--primary);
+            border-radius: 0 8px 8px 0;
+            padding: 16px 20px;
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: #475569;
+        }
+
+        .source-box strong {
+            color: var(--primary-dark);
+        }
+
+        .source-box a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .source-box a:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== TAG ===== */
+        .tag {
+            display: inline-block;
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 6px;
+            margin-bottom: 6px;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--text);
+            color: #94a3b8;
+            padding: 48px 0 32px;
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 0.85rem;
+            line-height: 1.8;
+        }
+
+        footer a {
+            color: #cbd5e1;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* ===== ANIMASI SCROLL ===== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 480px) {
+            .card {
+                padding: 24px 20px;
+            }
+            header {
+                padding: 48px 0 36px;
+            }
+            .section-number {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== HEADER ==================== -->
+    <header>
+        <div class="container header-content">
+            <span class="badge">📚 Tugas Akademik</span>
+            <h1>Analisis Tujuan, Peran, dan Dampak Media Pembelajaran</h1>
+            <p>Kajian literatur berdasarkan jurnal ilmiah terpercaya mengenai tujuan pembelajaran, peran media, dampak positif-negatif, serta solusi pengelolaannya.</p>
+        </div>
+    </header>
+
+    <!-- ==================== NAVIGASI ==================== -->
+    <nav>
+        <div class="container nav-inner">
+            <a href="#tujuan" class="active">Tujuan Pembelajaran</a>
+            <a href="#peran">Peran Media</a>
+            <a href="#dampak">Dampak Positif & Negatif</a>
+            <a href="#solusi">Solusi</a>
+            <a href="#referensi">Referensi</a>
+        </div>
+    </nav>
+
+    <!-- ==================== KONTEN UTAMA ==================== -->
+    <main>
+        <div class="container">
+
+            <!-- ===== BAGIAN 1: TUJUAN PEMBELAJARAN ===== -->
+            <section class="section fade-in" id="tujuan">
+                <div class="section-header">
+                    <div class="section-number">1</div>
+                    <div class="section-title">
+                        <h2>Jelaskan Mengenai Tujuan Pembelajaran?</h2>
+                        <p>Definisi, klasifikasi, dan urgensi tujuan pembelajaran</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Definisi Tujuan Pembelajaran</h3>
+                    <p>
+                        Tujuan pembelajaran merupakan <strong>target pencapaian kolektif</strong> yang dirumuskan sebagai pedoman bagi guru agar sasaran dalam proses belajar mengajar dapat tercapai secara optimal[reference:0]. Dalam konteks yang lebih operasional, tujuan pembelajaran didefinisikan sebagai <strong>kemampuan atau perubahan perilaku yang harus dimiliki oleh siswa setelah mereka mempelajari bahasan tertentu</strong> dalam satu kali pertemuan[reference:1].
+                    </p>
+                    <p>
+                        Menurut James Popham dan Eva Baker (2005), seorang guru profesional harus merumuskan tujuan pembelajarannya dalam bentuk <strong>perilaku siswa yang dapat diukur</strong> — yaitu menunjukkan apa yang dapat dilakukan oleh siswa tersebut sesudah mengikuti pelajaran[reference:2]. Tujuan pembelajaran juga berfungsi sebagai <strong>alat evaluasi efektivitas proses pembelajaran</strong>: suatu proses dikatakan berhasil manakala siswa dapat mencapai tujuan secara optimal[reference:3].
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>Klasifikasi Tujuan Pembelajaran (Taksonomi Bloom)</h3>
+                    <p>
+                        Perilaku individu sebagai tujuan belajar dapat diklasifikasikan ke dalam <strong>3 (tiga) ranah</strong> utama menurut Taksonomi Bloom:
+                    </p>
+                    <ul class="list-check">
+                        <li><strong>Ranah Kognitif</strong> — berkaitan dengan aspek intelektual atau berpikir/nalar, mencakup: pengetahuan, pemahaman, penerapan, penguraian, memadukan, dan penilaian[reference:4].</li>
+                        <li><strong>Ranah Afektif</strong> — berkaitan dengan aspek emosional seperti perasaan, minat, sikap, dan kepatuhan terhadap moral, mencakup: penerimaan, sambutan, penilaian, pengorganisasian, dan karakterisasi[reference:5].</li>
+                        <li><strong>Ranah Psikomotor</strong> — berkaitan dengan aspek keterampilan yang melibatkan fungsi sistem syaraf dan otot, mencakup: kesiapan, peniruan, membiasakan, menyesuaikan, dan menciptakan[reference:6].</li>
+                    </ul>
+                    <p>
+                        Di samping klasifikasi di atas, tujuan pembelajaran juga dibagi berdasarkan hierarkinya: Tujuan Pendidikan Nasional (TPN), Tujuan Institusional, Tujuan Kurikuler, dan Tujuan Pembelajaran (Instruksional)[reference:7]. Tujuan instruksional sendiri terbagi dua: <strong>Tujuan Instruksional Umum (TIU)</strong> dan <strong>Tujuan Instruksional Khusus (TIK)</strong> yang bersifat operasional dan dapat diukur[reference:8].
+                    </p>
+                </div>
+
+                <div class="source-box">
+                    <strong>Sumber:</strong> 
+                    <a href="http://eprints.uny.ac.id/53997/1/SKRIPSI%20FEBRIAN%20NUGROHO%20NIM.%2013604221058.pdf" target="_blank">Nugroho, F. (2017). Skripsi: Universitas Negeri Yogyakarta.</a> · 
+                    <a href="http://repository.uinsu.ac.id/12064/1/Disertasi%20Pustaka%20-%20.pdf" target="_blank">Disertasi: UIN Sumatera Utara.</a> · 
+                    <a href="https://core.ac.uk/download/537582310.pdf" target="_blank">Core.ac.uk (2023).</a>
+                </div>
+            </section>
+
+            <!-- ===== BAGIAN 2: PERAN MEDIA PEMBELAJARAN ===== -->
+            <section class="section fade-in" id="peran">
+                <div class="section-header">
+                    <div class="section-number">2</div>
+                    <div class="section-title">
+                        <h2>Jelaskan Peran Media Pembelajaran dalam Mencapai Tujuan Pembelajaran?</h2>
+                        <p>Fungsi dan kontribusi media dalam proses belajar mengajar</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Peran Utama Media Pembelajaran</h3>
+                    <p>
+                        Media pembelajaran memiliki peran strategis dalam menjembatani penyampaian materi dari guru kepada siswa. Hasil kajian menunjukkan bahwa penggunaan media pembelajaran dapat <strong>membantu memperjelas penyampaian materi</strong>, <strong>meningkatkan motivasi belajar peserta didik</strong>, serta <strong>menciptakan proses pembelajaran yang lebih efektif dan bermakna</strong>[reference:9].
+                    </p>
+                    <p>
+                        Bagi guru, media pembelajaran berperan untuk <strong>mengkonkritkan konsep atau gagasan</strong> abstrak sehingga siswa dapat belajar lebih aktif. Dengan memanfaatkan media secara baik dan tepat, guru dapat menjadi lebih efektif dan efisien dalam menyajikan materi pelajaran[reference:10].
+                    </p>
+                    <p>
+                        Bagi siswa, media pembelajaran berperan untuk <strong>membangkitkan minat dan motivasi belajar</strong>. Penggunaannya dalam proses belajar mengajar dapat meningkatkan minat dan keinginan yang baru, membangkitkan motivasi dan rangsangan kegiatan belajar, bahkan membawa pengaruh-pengaruh psikologis yang positif terhadap siswa[reference:11].
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>Kesimpulan Peran Media</h3>
+                    <p>
+                        Dengan demikian, dapat disimpulkan bahwa media pembelajaran berperan untuk <strong>membantu tugas guru dalam menyampaikan materi</strong> dan <strong>meningkatkan motivasi belajar siswa untuk mencapai kompetensi dasar yang telah ditetapkan</strong>[reference:12]. Pemanfaatan media pembelajaran secara tepat dan inovatif sangat diperlukan untuk mendukung tercapainya tujuan pendidikan secara menyeluruh[reference:13].
+                    </p>
+                </div>
+
+                <div class="source-box">
+                    <strong>Sumber:</strong> 
+                    <a href="https://jptam.org/index.php/jptam/article/view/39157" target="_blank">Annisa, M., Hafizoh, A., & Hayati, M. (2026). Jurnal Pendidikan Tambusai, 10(2), 12754–12762.</a> · 
+                    <a href="https://garuda.kemdikbud.go.id/author/view/2618063" target="_blank">Garuda Kemdikbud: Journal of Education Research.</a>
+                </div>
+            </section>
+
+            <!-- ===== BAGIAN 3: DAMPAK POSITIF DAN NEGATIF ===== -->
+            <section class="section fade-in" id="dampak">
+                <div class="section-header">
+                    <div class="section-number">3</div>
+                    <div class="section-title">
+                        <h2>Jelaskan Dampak Negatif dan Positif dari Pemanfaatan Media Pendidikan?</h2>
+                        <p>Analisis dua sisi pemanfaatan media digital dalam pembelajaran</p>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h3>✅ Dampak Positif</h3>
+                        <ul class="list-check">
+                            <li><strong>Peningkatan hasil belajar:</strong> Inovasi media pembelajaran digital secara umum memberikan dampak positif terhadap peningkatan hasil belajar dan keterlibatan siswa[reference:14].</li>
+                            <li><strong>Peningkatan motivasi:</strong> Sekitar 80% siswa melaporkan lebih termotivasi untuk belajar melalui penggunaan media digital[reference:15].</li>
+                            <li><strong>Keterlibatan aktif:</strong> 85% siswa lebih terlibat dalam pembelajaran digital dibandingkan pembelajaran tradisional, dengan kenaikan rata-rata nilai tes sebesar 25%[reference:16].</li>
+                            <li><strong>Pembelajaran interaktif:</strong> Media seperti Kahoot terbukti meningkatkan minat dan partisipasi dalam evaluasi pembelajaran[reference:17].</li>
+                            <li><strong>Peningkatan kreativitas dan wawasan:</strong> Media sosial dapat mendorong kreativitas dan memperluas wawasan siswa[reference:18].</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3>❌ Dampak Negatif</h3>
+                        <ul class="list-check list-cross">
+                            <li><strong>Distraksi belajar:</strong> Dampak negatif seperti distraksi belajar dan penurunan interaksi sosial tatap muka cenderung lebih dominan dibandingkan dampak positifnya[reference:19].</li>
+                            <li><strong>Kesulitan akses:</strong> Sekitar 15% siswa mengalami kesulitan mengakses internet, yang berdampak negatif pada motivasi dan keterlibatan belajar mereka[reference:20].</li>
+                            <li><strong>Ketergantungan teknologi:</strong> Ketergantungan berlebihan pada teknologi dapat mengurangi kemampuan berpikir kritis siswa jika tidak diimbangi dengan pendekatan pembelajaran yang tepat[reference:21].</li>
+                            <li><strong>Masalah privasi dan keamanan data:</strong> Kekhawatiran mengenai keamanan data dan privasi pengguna pada platform digital menjadi pertimbangan penting[reference:22].</li>
+                            <li><strong>Kecanduan dan penurunan interaksi sosial:</strong> Media sosial berpotensi menimbulkan distraksi, kecanduan, serta penurunan kualitas interaksi belajar jika tidak dikelola dengan bijak[reference:23].</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 20px;">
+                    <h3>Analisis Kritis</h3>
+                    <p>
+                        Temuan-temuan di atas menunjukkan bahwa media pembelajaran — terutama yang berbasis digital — memiliki <strong>efek ganda</strong>. Di satu sisi, media digital menawarkan peluang besar untuk meningkatkan kualitas pembelajaran melalui visualisasi, interaktivitas, dan aksesibilitas. Namun di sisi lain, tanpa pengelolaan yang tepat, media digital dapat menjadi sumber gangguan yang serius bagi proses belajar.
+                    </p>
+                    <p>
+                        Oleh karena itu, kunci utamanya bukan pada ada atau tidaknya media, melainkan pada <strong>bagaimana media tersebut diintegrasikan secara bijak</strong> ke dalam desain pembelajaran yang holistik.
+                    </p>
+                </div>
+
+                <div class="source-box">
+                    <strong>Sumber:</strong> 
+                    <a href="https://garuda.kemdiktisaintek.go.id/documents/detail/4999818" target="_blank">Garuda Kemdiktisaintek (2024). SLR Media Digital SMP.</a> · 
+                    <a href="https://garuda.kemdiktisaintek.go.id/documents/detail/6248550" target="_blank">Garuda Kemdiktisaintek (2025). Revolusi Media Pembelajaran.</a> · 
+                    <a href="https://www.semanticscholar.org/reader/ceb1ea1aa1d6a3ac86574a9e3cad3b33a804fd42" target="_blank">Semantic Scholar (2024). SWOT Media Interaktif.</a> · 
+                    <a href="https://garuda.kemdiktisaintek.go.id/documents/detail/6254445" target="_blank">Garuda Kemdiktisaintek (2026). Media Sosial & Karakter.</a> · 
+                    <a href="https://journal.ummat.ac.id/index.php/elementary/article/view/35547" target="_blank">Masril, M. & Haifaturrahmah (2026). Jurnal Elementary.</a>
+                </div>
+            </section>
+
+            <!-- ===== BAGIAN 4: SOLUSI ===== -->
+            <section class="section fade-in" id="solusi">
+                <div class="section-header">
+                    <div class="section-number">4</div>
+                    <div class="section-title">
+                        <h2>Bagaimana Solusi yang Dapat Dilakukan untuk Mengatasi Dampak Negatif Tersebut?</h2>
+                        <p>Strategi mitigasi berbasis penelitian ilmiah</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Lima Komponen Kunci</h3>
+                    <p>
+                        Penelitian mengusulkan <strong>lima komponen penting</strong> yang perlu diperhatikan dalam memaksimalkan manfaat media digital sekaligus meminimalkan dampak negatifnya pada proses pembelajaran[reference:24]:
+                    </p>
+                    <ul class="list-check">
+                        <li><strong>Sistem pembelajaran yang difasilitasi</strong> — menciptakan ekosistem belajar yang mendukung integrasi teknologi secara terstruktur.</li>
+                        <li><strong>Pelatihan keterampilan digital</strong> — meningkatkan kompetensi digital guru dan siswa secara berkelanjutan.</li>
+                        <li><strong>Penyesuaian penggunaan media digital dengan tingkat pertumbuhan dan perkembangan siswa</strong> — memastikan media yang digunakan sesuai dengan tahap kognitif dan emosional peserta didik.</li>
+                        <li><strong>Kolaborasi berbagai pihak</strong> — melibatkan guru, orang tua, dan institusi pendidikan dalam pengelolaan media digital.</li>
+                        <li><strong>Praktik sukses dari model sekolah Waldorf</strong> — mengadopsi pendekatan yang seimbang antara teknologi dan pengembangan holistik siswa.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Strategi dari Analisis SWOT</h3>
+                    <p>
+                        Berdasarkan analisis SWOT dalam penelitian tentang media pembelajaran interaktif, beberapa strategi konkret yang direkomendasikan meliputi[reference:25]:
+                    </p>
+                    <ul class="list-check">
+                        <li><strong>Menggabungkan metode pembelajaran digital interaktif dengan pendekatan konvensional</strong> untuk mengurangi ketergantungan berlebihan pada teknologi.</li>
+                        <li><strong>Memperkuat pengawasan guru</strong> terhadap penggunaan smartphone dan gadget siswa selama kegiatan kelas untuk meminimalkan distraksi digital.</li>
+                        <li><strong>Mempromosikan pendekatan pembelajaran yang seimbang</strong> yang mengintegrasikan teknologi dengan interaksi kelas langsung untuk menjaga kemampuan berpikir kritis dan komunikasi sosial siswa.</li>
+                        <li><strong>Menyediakan strategi pembelajaran alternatif dan sumber daya offline</strong> untuk mendukung kegiatan belajar ketika terjadi masalah teknologi atau internet.</li>
+                        <li><strong>Mengembangkan pedoman dan SOP terstruktur</strong> untuk penggunaan media pembelajaran interaktif yang efektif dan bertanggung jawab di sekolah.</li>
+                        <li><strong>Meningkatkan kesadaran guru dan siswa</strong> mengenai etika digital, privasi data, dan penggunaan teknologi yang aman.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Implementasi di Tingkat Sekolah</h3>
+                    <p>
+                        Sebuah studi kasus di SMP Ar Rohmah Puteri 1 Malang menunjukkan bahwa <strong>pengelolaan media digital yang terstruktur dan kolaboratif</strong> dapat mendukung pembelajaran yang etis dan pembentukan karakter. Implementasinya dilakukan melalui sistem pemantauan ketat dan pendampingan guru serta pengasuh, dengan hasil evaluasi menunjukkan tingkat pelanggaran ringan hanya 5–7% serta adanya peningkatan disiplin dan etika siswa dalam menggunakan media digital[reference:26].
+                    </p>
+                    <p>
+                        Selain itu, <strong>literasi media</strong> menjadi solusi paling penting dalam mengatasi permasalahan yang ada. Solusi yang dilakukan yaitu dengan mengadakan sosialisasi, pemberian hukuman yang mendidik, serta penerapan literasi media secara sistematis[reference:27].
+                    </p>
+                </div>
+
+                <div class="source-box">
+                    <strong>Sumber:</strong> 
+                    <a href="https://garuda.kemdiktisaintek.go.id/documents/detail/4967802" target="_blank">Garuda Kemdiktisaintek (2025). Media Digital: Dukungan & Gangguan.</a> · 
+                    <a href="https://www.semanticscholar.org/reader/ceb1ea1aa1d6a3ac86574a9e3cad3b33a804fd42" target="_blank">Semantic Scholar (2024). Strategi SWOT.</a> · 
+                    <a href="https://jptam.org/index.php/jptam/article/view/33685" target="_blank">Multazam & Burhanuddin (2025). Jurnal Pendidikan Tambusai, 9(3).</a> · 
+                    <a href="https://garuda.kemdiktisaintek.go.id/documents/detail/4999818" target="_blank">Garuda Kemdiktisaintek (2024). Literasi Media.</a>
+                </div>
+            </section>
+
+            <!-- ===== DAFTAR REFERENSI ===== -->
+            <section class="section fade-in" id="referensi">
+                <div class="section-header">
+                    <div class="section-number">📖</div>
+                    <div class="section-title">
+                        <h2>Daftar Referensi</h2>
+                        <p>Sumber-sumber jurnal dan publikasi ilmiah yang digunakan</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <ol style="padding-left: 20px; color: var(--text); line-height: 2;">
+                        <li>Annisa, M., Hafizoh, A., & Hayati, M. (2026). Fungsi, Manfaat, Jenis dan Karakteristik Media Pembelajaran. <em>Jurnal Pendidikan Tambusai, 10</em>(2), 12754–12762. <a href="https://doi.org/10.31004/jptam.v10i2.39157" target="_blank" style="color: var(--primary);">https://doi.org/10.31004/jptam.v10i2.39157</a></li>
+                        <li>Garuda Kemdikbud. (2024). Peran Media Pembelajaran dalam Mengoptimalkan Hasil Belajar. <em>Journal of Education Research</em>.</li>
+                        <li>Garuda Kemdiktisaintek. (2024). Inovasi Media Pembelajaran Digital di SMP: Systematic Literature Review.</li>
+                        <li>Garuda Kemdiktisaintek. (2025). Revolusi Media Pembelajaran: Transformasi dari Tradisional ke Digital dalam Pendidikan di Medan.</li>
+                        <li>Garuda Kemdiktisaintek. (2025). Media Digital: Antara Dukungan dan Gangguan Terhadap Pembelajaran.</li>
+                        <li>Garuda Kemdiktisaintek. (2026). Dampak Media Sosial terhadap Karakter Siswa SMP.</li>
+                        <li>Masril, M., & Haifaturrahmah. (2026). Analisis Dampak Positif dan Negatif Media Sosial terhadap Perilaku Belajar Siswa Sekolah Dasar. <em>Jurnal Elementary</em>.</li>
+                        <li>Multazam, F. N. D., & Burhanuddin, B. (2025). Manajemen Penggunaan Media Digital dalam Menanamkan Etika dan Karakter Disiplin Peserta Didik. <em>Jurnal Pendidikan Tambusai, 9</em>(3), 35246–35250. <a href="https://doi.org/10.31004/jptam.v9i3.33685" target="_blank" style="color: var(--primary);">https://doi.org/10.31004/jptam.v9i3.33685</a></li>
+                        <li>Nugroho, F. (2017). <em>Skripsi: Perumusan Tujuan Pembelajaran</em>. Universitas Negeri Yogyakarta.</li>
+                        <li>Semantic Scholar. (2024). Strategic Formulation Based on SWOT Analysis: Interactive Learning Media at SMK Negeri 1 Tombariri.</li>
+                        <li>UIN Sumatera Utara. (n.d.). <em>Disertasi: Tujuan Pembelajaran dan Klasifikasinya</em>.</li>
+                        <li>Core.ac.uk. (2023). <em>Perencanaan Pengajaran Berdasarkan Pendekatan Sistem</em>.</li>
+                    </ol>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#tujuan">Tujuan</a>
+                <a href="#peran">Peran</a>
+                <a href="#dampak">Dampak</a>
+                <a href="#solusi">Solusi</a>
+                <a href="#referensi">Referensi</a>
+            </div>
+            <p>
+                Blog Pendidikan · Tugas Mata Kuliah Media Pembelajaran<br>
+                Dibuat dengan ❤️ untuk keperluan akademik · <a href="https://github.com" target="_blank">GitHub Pages</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- ==================== JAVASCRIPT ==================== -->
+    <script>
+        // Animasi fade-in saat scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -40px 0px'
+            });
+
+            fadeElements.forEach(el => observer.observe(el));
+
+            // Highlight navigasi aktif saat scroll
+            const sections = document.querySelectorAll('.section[id]');
+            const navLinks = document.querySelectorAll('.nav-inner a');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 120;
+                    if (window.scrollY >= sectionTop) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
